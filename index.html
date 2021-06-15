@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="author" content="www.thepythontutor.tech" />
+  <meta name="viewport" content="width=device-width minimum-scale=1.0 maximum-scale=1.0 user-scalable=no" />
+  <title>Mobile App - Starter Template</title>
+  <link href="lib/css/mmenu.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="lib/css/onsenui.css">
+  <link rel="stylesheet" href="lib/css/onsen-css-components.min.css">
+  <script src="lib/js/onsenui.min.js"></script>
+
+  <link href="lib/css/demo.css" rel="stylesheet" />
+</head>
+<body>
+  <script src="lib/js/js-splash-2.0.min.js"></script>
+  <script id="rendered-js">
+    var splash = new Splash({ background: 'black' });
+        
+    splash.fromCSSAnimation('lib/css/splash.css',
+    '<div id="loader-wrapper">\n' +
+    '     <div id="loader"></div>\n' +
+    '</div>');
+  </script>
+  
+  
+  <div id="my-page" class="sc-container">
+    
+    <!-- Navigation Menu -->
+    <div id="my-header" class="header">
+      <a href="#my-menu"><span></span></a>
+      Starter Template
+      <nav id="my-menu">
+        <ul>
+          <li><a onclick="navigate('#!/')" href="#!/">Home</a></li>
+          <li><a onclick="navigate('#!/teams')" href="#!/teams">Teams</a>
+          <li><a onclick="navigate('#!/standings')" href="#!/standings">Standings</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- End Navigation Menu -->
+    
+    <div id="my-content" class="sc-container">
+      
+      <router-view></router-view>
+    </div>
+    
+  </div>
+  
+  <script src="lib/js/tulipan.min.js"></script>
+  <script src="lib/js/jquery-3.1.1.min.js"></script>
+  <script src="lib/js/mmenu.js"></script>
+  <script src="lib/js/mmenu.polyfills.js"></script>
+  
+  <script>
+    var menu = new Mmenu( "#my-menu", {
+      // options
+      }, {
+      // configuration
+        classNames: {
+          selected: "active"
+        }
+    });
+    function navigate(url){
+      menu.close();
+      window.location.assign(url);
+    }
+  </script>
+  
+  <!-- Tulipan Applications -->
+  <script src="app/leagues.js"></script>
+  <script src="app/teams.js"></script>
+  <script src="app/team.js"></script>  
+  <!-- End Tulipan Applications -->
+  
+  <script>
+
+    var vm3 = new Tulipan({
+
+      template: {
+        url: "views/standings.html",
+        async: false
+      },
+      
+      route: "/standings",
+
+      data: {
+        name: "standings"
+      },
+
+      methods: {
+
+        after: function(params, query){
+          console.log("standings routed");
+          console.log(query);
+        },
+      }
+    });
+
+</script>
+</body>
+</html>
