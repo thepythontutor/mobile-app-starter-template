@@ -25,79 +25,83 @@
   </script>
   
   
-  <div id="my-page" class="sc-container">
-    
-    <!-- Navigation Menu -->
-    <div id="my-header" class="header">
-      <a href="#my-menu"><span></span></a>
-      Mobile App - Starter Template
-      <nav id="my-menu">
-        <ul>
-          <li><a onclick="navigate('#!/')" href="#!/">Home</a></li>
-          <li><a onclick="navigate('#!/teams')" href="#!/teams">Teams</a>
-          <li><a onclick="navigate('#!/standings')" href="#!/standings">Standings</a></li>
-        </ul>
-      </nav>
-    </div>
-    <!-- End Navigation Menu -->
-    
-    <div id="my-content" class="sc-container">
-      
-      <router-view></router-view>
-    </div>
-    
-  </div>
-  
-  <script src="lib/js/tulipan.min.js"></script>
-  <script src="lib/js/jquery-3.1.1.min.js"></script>
-  <script src="lib/js/mmenu.js"></script>
-  <script src="lib/js/mmenu.polyfills.js"></script>
-  
-  <script>
-    var menu = new Mmenu( "#my-menu", {
-      // options
-      }, {
-      // configuration
-        classNames: {
-          selected: "active"
+  <!-- First navigation component: Navigator. This will remain always on top of the app. -->
+  <ons-navigator id="myNavigator" page="splitter.html">
+</ons-navigator>
+
+
+<!-- Second navigation component: Splitter. This will disappear if the first component changes its content. -->
+<template id="splitter.html">
+  <ons-page>
+    <ons-splitter id="mySplitter">
+      <ons-splitter-side id="sidemenu" page="views/menu.html" swipeable width="250px" collapse swipe-target-width="50px">
+      </ons-splitter-side>
+      <ons-splitter-content page="tabbar.html">
+      </ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</template>
+
+<!-- Third navigation component: Tabbar. This will disappear if the first or second components change their content. -->
+<template id="tabbar.html">
+  <ons-page id="tabbarPage">
+    <ons-toolbar>
+      <div class="left">
+        <!-- Toolbar-button with different icons depending on the platform. -->
+        <ons-toolbar-button onclick="fn.toggleMenu()" component="button/menu">
+          <ons-icon icon="fa-bars" size="32px, material:24px"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">Todos</div>
+      <div class="right">
+        <!-- Toolbar-button  only visible for iOS/other. -->
+        <ons-if platform="ios other">
+          <ons-toolbar-button component="button/new-task">New</ons-toolbar-button>
+        </ons-if>
+      </div>
+    </ons-toolbar>
+
+    <!-- Floating Action Button only visible for Android. -->
+    <ons-if platform="android">
+      <ons-fab position="right bottom" component="button/new-task">
+        <ons-icon icon="fa-pen"></ons-icon>
+      </ons-fab>
+    </ons-if>
+
+    <!-- Auto-positioned Tabbar: top on Android, bottom on iOS/other. -->
+    <ons-tabbar id="myTabbar" position="auto">
+      <ons-tab page="views/pending_tasks.html" label="Pending" active>
+      </ons-tab>
+      <ons-tab page="views/completed_tasks.html" label="Completed">
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
+</template>
+
+<script>
+    window.fn = {};
+
+    window.fn.toggleMenu = function () {
+        document.getElementById('mySplitter').left.toggle();
+    };
+
+    window.fn.loadView = function (index) {
+        // document.getElementById('appTabbar').setActiveTab(index);
+        document.getElementById('sidemenu').close();
+    };
+
+    window.fn.loadLink = function (url) {
+        window.open(url, '_blank');
+    };
+
+    window.fn.pushPage = function (page, anim) {
+        if (anim) {
+            document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+        } else {
+            document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
         }
-    });
-    function navigate(url){
-      menu.close();
-      window.location.assign(url);
-    }
-  </script>
-  
-  <!-- Tulipan Applications -->
-  <script src="app/leagues.js"></script>
-  <script src="app/teams.js"></script>
-  <script src="app/team.js"></script>  
-  <!-- End Tulipan Applications -->
-  
-  <script>
-
-    var vm3 = new Tulipan({
-
-      template: {
-        url: "views/standings.html",
-        async: false
-      },
-      
-      route: "/standings",
-
-      data: {
-        name: "standings"
-      },
-
-      methods: {
-
-        after: function(params, query){
-          console.log("standings routed");
-          console.log(query);
-        },
-      }
-    });
-
+    };
 </script>
+
 </body>
 </html>
