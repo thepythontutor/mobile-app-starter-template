@@ -63,7 +63,7 @@
 
     <!-- Floating Action Button only visible for Android. -->
     <ons-if platform="android">
-      <ons-fab position="right bottom" component="button/new-task">
+      <ons-fab onclick="fn.pushPage({'id': 'views/new_task.html', 'title': 'PullHook'})" position="right bottom" component="button/new-task">
         <ons-icon icon="fa-pen"></ons-icon>
       </ons-fab>
     </ons-if>
@@ -96,9 +96,9 @@
 
     window.fn.pushPage = function (page, anim) {
         if (anim) {
-            document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+            document.getElementById('myNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
         } else {
-            document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+            document.getElementById('myNavigator').pushPage(page.id, { data: { title: page.title } });
         }
     };
 </script>
