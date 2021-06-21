@@ -1,56 +1,97 @@
 <ons-page id="newTaskPage">
+
   <ons-toolbar>
     <div class="left"><ons-back-button>Todos</ons-back-button></div>
     <div class="center">New Task</div>
     <div class="right">
       <ons-if platform="android">
         <ons-toolbar-button component="button/save-task">
-          <ons-icon icon="fa-save"></ons-icon>
+          <div>        
+            <ons-icon icon="fa-save" tp-on:click="saveTask"></ons-icon>
+          </div>
         </ons-toolbar-button>
       </ons-if>
     </div>
   </ons-toolbar>
 
-  <ons-list-title>Add a new task</ons-list-title>
-  <ons-list>
-    <ons-list-item modifier="nodivider">
-      <div class="center">
-        <ons-input id="title-input" type="text" placeholder="I want to..." float></ons-input>
-      </div>
-    </ons-list-item>
-    <ons-list-item modifier="nodivider">
-      <div class="center">
-        <ons-input id="category-input" type="text" placeholder="Category" float></ons-input>
-      </div>
-    </ons-list-item>
-    <ons-list-item modifier="nodivider">
-      <div class="center">
-        <ons-input id="description-input" type="text" placeholder="Description" float></ons-input>
-      </div>
-    </ons-list-item>
-  </ons-list>
+  <div>
+    <ons-list-title>Add a new task</ons-list-title>
+    <ons-list>
+      <ons-list-item modifier="nodivider">
+        <div class="center">
+          <div>
+            <input id="task-input" tp-model="task" type="text" class="text-input text-input--underbar" placeholder="I want to..." value="">
+          </div>
+        </div>
+      </ons-list-item>
+      <ons-list-item modifier="nodivider">
+        <div class="center">
+          <div>
+            <input id="category-input" tp-model="category" type="text" class="text-input text-input--underbar" placeholder="Category" value="">
+          </div>
+        </div>
+      </ons-list-item>
+      <ons-list-item modifier="nodivider">
+        <div class="center">
+          <div>
+            <input id="description-input" tp-model="description" type="text" class="text-input text-input--underbar" placeholder="Description" value="">
+          </div>
+        </div>
+      </ons-list-item>
+    </ons-list>
 
-  <ons-list-title>Other options</ons-list-title>
-  <ons-list>
-    <ons-list-item modifier="nodivider">
-      <label class="center" for="inner-highlight-input">
-        Highlight?
-      </label>
-      <div class="right">
-        <ons-switch id="highlight-input" input-id="inner-highlight-input"></ons-switch>
-      </div>
-    </ons-list-item>
-    <ons-list-item modifier="nodivider">
-      <label class="center" for="inner-urgent-input">
-        Is it urgent?
-      </label>
-      <div class="right">
-        <ons-switch id="urgent-input" input-id="inner-urgent-input"></ons-switch>
-      </div>
-    </ons-list-item>
-  </ons-list>
+    <ons-list-title>Other options</ons-list-title>
+    <ons-list>
+      <ons-list-item modifier="nodivider">
+        <label class="center" for="inner-highlight-input">
+          Highlight?
+        </label>
+        <div class="right">
+          <label class="switch switch--material">
+            <input type="checkbox" class="switch__input switch--material__input" tp-model="highlight">
+            <div class="switch__toggle switch--material__toggle">
+              <div class="switch__handle switch--material__handle">
+              </div>
+            </div>
+          </label>
+        </div>
+      </ons-list-item>
+      <ons-list-item modifier="nodivider">
+        <label class="center" for="inner-urgent-input">
+          Is it urgent?
+        </label>
+        <div class="right">
+          <label class="switch switch--material">
+            <input type="checkbox" class="switch__input switch--material__input" tp-model="urgent">
+            <div class="switch__toggle switch--material__toggle">
+              <div class="switch__handle switch--material__handle">
+              </div>
+            </div>
+          </label>
+        </div>
+      </ons-list-item>
+    </ons-list>
 
-  <ons-if platform="ios other">
-    <ons-button modifier="large" component="button/save-task">Add New Task</ons-button>
-  </ons-if>
+    <ons-if platform="ios other">
+      <ons-button modifier="large" component="button/save-task">Add New Task</ons-button>
+    </ons-if>
+  </div>
+
+  <script>
+    var newTaskApp = new Tulipan({
+      el: "#newTaskPage",
+      data: {
+          task: "",
+          category: "",
+          description: "",
+          highlight: false,
+          urgent: false
+      },
+      methods: {
+        saveTask: function(){
+          console.log("Saving...")
+        }
+      }
+    })
+  </script>
 </ons-page>

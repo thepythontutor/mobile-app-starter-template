@@ -10,10 +10,11 @@
   <link rel="stylesheet" href="lib/css/onsenui.css">
   <link rel="stylesheet" href="lib/css/onsen-css-components.min.css">
   <script src="lib/js/onsenui.min.js"></script>
+  <script src="lib/js/tulipan.min.js"></script>
 
   <link href="lib/css/demo.css" rel="stylesheet" />
 </head>
-<body>
+<body id="app">
   <script src="lib/js/js-splash-2.0.min.js"></script>
   <script id="rendered-js">
     var splash = new Splash({ background: 'black' });
@@ -101,7 +102,14 @@
             document.getElementById('myNavigator').pushPage(page.id, { data: { title: page.title } });
         }
     };
-</script>
 
+    var homeApp = new Tulipan({
+      el: "#app",
+      data: {
+        tasks: []
+      }
+    })
+    
+</script>
 </body>
 </html>
